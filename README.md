@@ -3,9 +3,9 @@ Koordinater x, y, z.
 Funktionen returnerar koordinaternas form.  
 
 Dessa tester ska utföras  
-> - [ ]  Tom lista returnerar ”None”
-> - [ ]  Lista med en koordinat returnerar ”Dot”
-> - [ ]  Lista med två koordinater returnerar ”Line”.
+> - [x]  Tom lista returnerar ”None”
+> - [x]  Lista med en koordinat returnerar ”Dot”
+> - [x]  Lista med två koordinater returnerar ”Line”.
 > - [ ]  Lista med tre koordinater returnerar ”Triangle”.
 > - [ ]  Lista med fyra koordinater:
 >> - [ ] Lika långt mellan punkterna på axlarna returnerar ”Square”
