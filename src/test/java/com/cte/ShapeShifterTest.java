@@ -15,7 +15,7 @@ public class ShapeShifterTest{
         coordinateArrayList = new ArrayList<>();
         //coordinateArrayList.add(new CoordinateModel(0,0,0));
         
-        shapeShifter = new ShapeShifter();
+        shapeShifter = new ShapeShifter(coordinateArrayList);
 
     }
 
@@ -24,6 +24,5 @@ public class ShapeShifterTest{
         String expected = "None";
         String actual = shapeShifter.getShape();
         assertEquals(expected,actual);
-
     }
 }
