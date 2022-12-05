@@ -39,4 +39,14 @@ public class ShapeShifterTest{
         String actual = shapeShifter.getShape();
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void checkIfThreeCoordinatesFormsATriangle(){
+        coordinateArrayList.add(new CoordinateModel(0,0,0));
+        coordinateArrayList.add(new CoordinateModel(1,0,0));
+        coordinateArrayList.add(new CoordinateModel(2,0,0));
+        String expected = "Triangle";
+        String actual = shapeShifter.getShape();
+        assertEquals(expected,actual);
+    }
 }

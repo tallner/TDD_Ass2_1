@@ -17,9 +17,9 @@ public class ShapeShifter {
 
         if (coordinates.size()==0) returnMessage = "None";
         else if (coordinates.size()==1) returnMessage = "Dot";
-        else if (coordinates.size()==2){
-            returnMessage = checkLine(coordinates) ? "Line" : "Two dots on top of eachoter";
-        }
+        else if (coordinates.size()==2) returnMessage = checkLine(coordinates) ? "Line" : "Two dots on top of eachoter";
+        else if (coordinates.size()==3) returnMessage = checkTriangle(coordinates) ? "Triangle" : "Thats no triangle";
+
 
         return returnMessage;
 
@@ -37,6 +37,18 @@ public class ShapeShifter {
                     (coordinates.get(1).getX() + coordinates.get(1).getY() + coordinates.get(1).getZ());
 
         }
+
+    }
+
+
+    private boolean checkTriangle(ArrayList<CoordinateModel> coordinates){
+
+        if (coordinates.size() != 3){
+            return false;
+        }
+        else return true;
+
+
 
     }
 }
