@@ -19,6 +19,7 @@ public class ShapeShifter {
         else if (coordinates.size()==1) returnMessage = "Dot";
         else if (coordinates.size()==2) returnMessage = checkLine(coordinates) ? "Line" : "Two dots on top of eachoter";
         else if (coordinates.size()==3) returnMessage = checkTriangle(coordinates) ? "Triangle" : "Thats no triangle";
+        else if (coordinates.size()==4) returnMessage = checkSquareFormat(coordinates);
 
 
         return returnMessage;
@@ -40,15 +41,29 @@ public class ShapeShifter {
 
     }
 
-
     private boolean checkTriangle(ArrayList<CoordinateModel> coordinates){
+        return coordinates.size() == 3;
+    }
 
-        if (coordinates.size() != 3){
-            return false;
-        }
-        else return true;
+    private String checkSquareFormat(ArrayList<CoordinateModel> coordinates){
+        String returnMessage = new String();
+        if (coordinates.size() != 4) return "Not 4 coordinates";
 
+        //Lika långt mellan punkterna på axlarna returnerar ”Square”
+        //Antar att min square ligger i ett plan, dvs korsar inga plan
+        //utgår från att koordinaterna kommer i tur och ordning, dvs punkt 0, punkt 1 osv
+        coordinates.get(0).getX();
+        coordinates.get(1).getX();
+        coordinates.get(2).getX();
+        coordinates.get(3).getX();
+        returnMessage = "Square";
 
+        //Lika långt mellan parallella axlar returnerar ”Rectangle”
+        returnMessage = "Rectangle";
 
+        //En offset mellan parallella axlars koordinater returnerar ”Parallelogram”
+        returnMessage = "Parallelogram";
+
+        return returnMessage;
     }
 }

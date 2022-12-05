@@ -49,4 +49,37 @@ public class ShapeShifterTest{
         String actual = shapeShifter.getShape();
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void checkIfFourCoordinatesFormsASquare(){
+        coordinateArrayList.add(new CoordinateModel(0,0,0));
+        coordinateArrayList.add(new CoordinateModel(1,1,0));
+        coordinateArrayList.add(new CoordinateModel(0,0,0));
+        coordinateArrayList.add(new CoordinateModel(1,1,0));
+        String expected = "Square";
+        String actual = shapeShifter.getShape();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void checkIfFourCoordinatesFormsARectangle(){
+        coordinateArrayList.add(new CoordinateModel(0,0,0));
+        coordinateArrayList.add(new CoordinateModel(1,0,0));
+        coordinateArrayList.add(new CoordinateModel(2,0,0));
+        coordinateArrayList.add(new CoordinateModel(3,0,0));
+        String expected = "Rectangle";
+        String actual = shapeShifter.getShape();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void checkIfFourCoordinatesFormsAParallelogram(){
+        coordinateArrayList.add(new CoordinateModel(0,0,0));
+        coordinateArrayList.add(new CoordinateModel(1,0,0));
+        coordinateArrayList.add(new CoordinateModel(2,0,0));
+        coordinateArrayList.add(new CoordinateModel(3,0,0));
+        String expected = "Parallelogram";
+        String actual = shapeShifter.getShape();
+        assertEquals(expected,actual);
+    }
 }
