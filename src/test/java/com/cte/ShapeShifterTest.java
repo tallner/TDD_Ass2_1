@@ -52,10 +52,11 @@ public class ShapeShifterTest{
 
     @Test
     public void checkIfFourCoordinatesFormsASquare(){
+        //we only test in one plane, so set 0 in z in order to test in the xy-plane
         coordinateArrayList.add(new CoordinateModel(0,0,0));
-        coordinateArrayList.add(new CoordinateModel(1,1,0));
-        coordinateArrayList.add(new CoordinateModel(0,0,0));
-        coordinateArrayList.add(new CoordinateModel(1,1,0));
+        coordinateArrayList.add(new CoordinateModel(0,5,0));
+        coordinateArrayList.add(new CoordinateModel(5,5,0));
+        coordinateArrayList.add(new CoordinateModel(5,0,0));
         String expected = "Square";
         String actual = shapeShifter.getShape();
         assertEquals(expected,actual);
@@ -64,9 +65,9 @@ public class ShapeShifterTest{
     @Test
     public void checkIfFourCoordinatesFormsARectangle(){
         coordinateArrayList.add(new CoordinateModel(0,0,0));
-        coordinateArrayList.add(new CoordinateModel(1,0,0));
-        coordinateArrayList.add(new CoordinateModel(2,0,0));
         coordinateArrayList.add(new CoordinateModel(3,0,0));
+        coordinateArrayList.add(new CoordinateModel(3,2,0));
+        coordinateArrayList.add(new CoordinateModel(0,2,0));
         String expected = "Rectangle";
         String actual = shapeShifter.getShape();
         assertEquals(expected,actual);
@@ -75,10 +76,21 @@ public class ShapeShifterTest{
     @Test
     public void checkIfFourCoordinatesFormsAParallelogram(){
         coordinateArrayList.add(new CoordinateModel(0,0,0));
-        coordinateArrayList.add(new CoordinateModel(1,0,0));
-        coordinateArrayList.add(new CoordinateModel(2,0,0));
-        coordinateArrayList.add(new CoordinateModel(3,0,0));
+        coordinateArrayList.add(new CoordinateModel(10,0,0));
+        coordinateArrayList.add(new CoordinateModel(15,3,0));
+        coordinateArrayList.add(new CoordinateModel(5,3,0));
         String expected = "Parallelogram";
+        String actual = shapeShifter.getShape();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void checkIfFourCoordinatesFormsA2DShape(){
+        coordinateArrayList.add(new CoordinateModel(0,0,0));
+        coordinateArrayList.add(new CoordinateModel(10,0,0));
+        coordinateArrayList.add(new CoordinateModel(1,3,0));
+        coordinateArrayList.add(new CoordinateModel(5,3,0));
+        String expected = "2D Shape";
         String actual = shapeShifter.getShape();
         assertEquals(expected,actual);
     }

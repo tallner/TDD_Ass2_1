@@ -45,24 +45,110 @@ public class ShapeShifter {
         return coordinates.size() == 3;
     }
 
+    private LengthModel coordinatesDistance(ArrayList<CoordinateModel> coordinates){
+        if (coordinates.size() != 4)
+            return null;
+
+        int x_sum = coordinates.get(0).getX() + coordinates.get(1).getX() + coordinates.get(2).getX() + coordinates.get(3).getX();
+        int y_sum = coordinates.get(0).getY() + coordinates.get(1).getY() + coordinates.get(2).getY() + coordinates.get(3).getY();
+        int z_sum = coordinates.get(0).getZ() + coordinates.get(1).getZ() + coordinates.get(2).getZ() + coordinates.get(3).getZ();
+
+        boolean xy_shape = x_sum != 0 && y_sum!=0 && z_sum==0;
+        boolean xz_shape = x_sum != 0 && y_sum==0 && z_sum!=0;
+        boolean yz_shape = x_sum == 0 && y_sum!=0 && z_sum!=0;
+
+        //only check one plane, either XY, YZ or XZ
+        if (!xy_shape && !xz_shape && !yz_shape)
+            return null;
+
+        LengthModel lenghts = new LengthModel();
+
+
+        int x1 = coordinates.get(0).getX();
+        int x2 = coordinates.get(1).getX();
+        int x3 = coordinates.get(2).getX();
+        int x4 = coordinates.get(3).getX();
+        int y1 = coordinates.get(0).getY();
+        int y2 = coordinates.get(1).getY();
+        int y3 = coordinates.get(2).getY();
+        int y4 = coordinates.get(3).getY();
+        int z1 = coordinates.get(0).getZ();
+        int z2 = coordinates.get(1).getZ();
+        int z3 = coordinates.get(2).getZ();
+        int z4 = coordinates.get(3).getZ();
+
+
+        double px1 = Math.pow(x1,2);
+        double px2 = Math.pow(x2,2);
+        double px3 = Math.pow(x3,2);
+        double px4 = Math.pow(x4,2);
+        double py1 = Math.pow(y1,2);
+        double py2 = Math.pow(y2,2);
+        double py3 = Math.pow(y3,2);
+        double py4 = Math.pow(y4,2);
+        double pz1 = Math.pow(z1,2);
+        double pz2 = Math.pow(z2,2);
+        double pz3 = Math.pow(z3,2);
+        double pz4 = Math.pow(z4,2);
+
+        //calculate length between coordinates
+        if (xy_shape){
+            lenghts.d12 = Math.sqrt(px1+px2+py1+py2-2*((x1*x2)+(y1*y2)));
+            lenghts.d13 = Math.sqrt(px1+px3+py1+py3-2*((x1*x3)+(y1*y3)));
+            lenghts.d14 = Math.sqrt(px1+px4+py1+py4-2*((x1*x4)+(y1*y4)));
+            lenghts.d23 = Math.sqrt(px2+px3+py2+py3-2*((x2*x3)+(y2*y3)));
+            lenghts.d24 = Math.sqrt(px2+px4+py2+py4-2*((x2*x4)+(y2*y4)));
+            lenghts.d34 = Math.sqrt(px3+px4+py3+py4-2*((x3*x4)+(y3*y4)));
+
+        }else if (xz_shape){
+            lenghts.d12 = Math.sqrt(px1+px2+pz1+pz2-2*((x1*x2)+(z1*z2)));
+            lenghts.d13 = Math.sqrt(px1+px3+pz1+pz3-2*((x1*x3)+(z1*z3)));
+            lenghts.d14 = Math.sqrt(px1+px4+pz1+pz4-2*((x1*x4)+(z1*z4)));
+            lenghts.d23 = Math.sqrt(px2+px3+pz2+pz3-2*((x2*x3)+(z2*z3)));
+            lenghts.d24 = Math.sqrt(px2+px4+pz2+pz4-2*((x2*x4)+(z2*z4)));
+            lenghts.d34 = Math.sqrt(px3+px4+pz3+pz4-2*((x3*x4)+(z3*z4)));
+
+        }else if (yz_shape){
+            lenghts.d12 = Math.sqrt(py1+py2+pz1+pz2-2*((y1*y2)+(z1*z2)));
+            lenghts.d13 = Math.sqrt(py1+py3+pz1+pz3-2*((y1*y3)+(z1*z3)));
+            lenghts.d14 = Math.sqrt(py1+py4+pz1+pz4-2*((y1*y4)+(z1*z4)));
+            lenghts.d23 = Math.sqrt(py2+py3+pz2+pz3-2*((y2*y3)+(z2*z3)));
+            lenghts.d24 = Math.sqrt(py2+py4+pz2+pz4-2*((y2*y4)+(z2*z4)));
+            lenghts.d34 = Math.sqrt(py3+py4+pz3+pz4-2*((y3*y4)+(z3*z4)));
+
+        }else return null;
+
+
+        return lenghts;
+    }
+
     private String checkSquareFormat(ArrayList<CoordinateModel> coordinates){
-        String returnMessage = new String();
-        if (coordinates.size() != 4) return "Not 4 coordinates";
+        String returnMessage;
 
-        //Lika långt mellan punkterna på axlarna returnerar ”Square”
+        LengthModel lengths = coordinatesDistance(coordinates);
+
+
+        if (coordinates.size() != 4)
+            return "Not 4 coordinates";
+
+        //check if length calculator generates null
+        if (lengths == null)
+            return "Bad coordinates";
+
         //Antar att min square ligger i ett plan, dvs korsar inga plan
-        //utgår från att koordinaterna kommer i tur och ordning, dvs punkt 0, punkt 1 osv
-        coordinates.get(0).getX();
-        coordinates.get(1).getX();
-        coordinates.get(2).getX();
-        coordinates.get(3).getX();
-        returnMessage = "Square";
+        //Lika långt mellan punkterna på axlarna returnerar ”Square” och diagonalen är samma
+        if (lengths.d12==lengths.d14 && lengths.d12==lengths.d23 && lengths.d12==lengths.d34 && lengths.d13==lengths.d24)
+            returnMessage = "Square";
 
-        //Lika långt mellan parallella axlar returnerar ”Rectangle”
-        returnMessage = "Rectangle";
+        //Lika långt mellan parallella axlar returnerar ”Rectangle” och diagonalen är samma
+        else if (lengths.d12==lengths.d34 && lengths.d23==lengths.d14 && lengths.d13==lengths.d24)
+            returnMessage = "Rectangle";
 
-        //En offset mellan parallella axlars koordinater returnerar ”Parallelogram”
-        returnMessage = "Parallelogram";
+        //Lika långt mellan parallella axlar returnerar ”Parallelogram” och diagonalen inte är samma
+        else if (lengths.d12==lengths.d34 && lengths.d23==lengths.d14 && lengths.d13!=lengths.d24)
+            returnMessage = "Parallelogram";
+
+        else returnMessage = "2D Shape";
 
         return returnMessage;
     }
