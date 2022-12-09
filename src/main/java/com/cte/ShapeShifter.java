@@ -21,7 +21,7 @@ public class ShapeShifter {
         else if (coordinates.size()==3) returnMessage = checkTriangle(coordinates) ? "Triangle" : "Thats no triangle";
         else if (coordinates.size()==4) returnMessage = checkSquareFormat(coordinates);
         else if (coordinates.size()==5) returnMessage = checkPyramidFormat(coordinates) ? "Pyramid" : "Thats no pyramid";
-
+        else if (coordinates.size()==8) returnMessage = checkCubeFormat(coordinates) ? "Cube" : "Thats no cube";
 
         return returnMessage;
 
@@ -189,6 +189,30 @@ public class ShapeShifter {
 
         return false;
 
+    }
+
+    private boolean checkCubeFormat(ArrayList<CoordinateModel> coordinates){
+        ArrayList<CoordinateModel> squareOneCoordinates = new ArrayList<>();
+        squareOneCoordinates.add(coordinates.get(0));
+        squareOneCoordinates.add(coordinates.get(1));
+        squareOneCoordinates.add(coordinates.get(2));
+        squareOneCoordinates.add(coordinates.get(3));
+
+        ArrayList<CoordinateModel> squareTwoCoordinates = new ArrayList<>();
+        squareTwoCoordinates.add(coordinates.get(4));
+        squareTwoCoordinates.add(coordinates.get(5));
+        squareTwoCoordinates.add(coordinates.get(6));
+        squareTwoCoordinates.add(coordinates.get(7));
+
+        if (checkSquareFormat(squareOneCoordinates).equals("Square") &&
+            checkSquareFormat(squareTwoCoordinates).equals("Square") &&
+            ((squareOneCoordinates.get(1).getX() - squareOneCoordinates.get(0).getX()) ==
+             (squareTwoCoordinates.get(0).getX() - squareOneCoordinates.get(1).getX()))
+        ){
+            return true;
+        }
+
+        return false;
     }
 
 }

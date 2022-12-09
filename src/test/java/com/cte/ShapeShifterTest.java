@@ -196,4 +196,21 @@ public class ShapeShifterTest{
         String actual = shapeShifter.getShape();
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void checkIfEightCoordinatesFormsACube(){
+        coordinateArrayList.add(new CoordinateModel(0,0,0));
+        coordinateArrayList.add(new CoordinateModel(5,0,0));
+        coordinateArrayList.add(new CoordinateModel(5,5,0));
+        coordinateArrayList.add(new CoordinateModel(0,5,0));
+
+        coordinateArrayList.add(new CoordinateModel(10,0,0));
+        coordinateArrayList.add(new CoordinateModel(15,0,0));
+        coordinateArrayList.add(new CoordinateModel(15,5,0));
+        coordinateArrayList.add(new CoordinateModel(10,5,0));
+
+        String expected = "Cube";
+        String actual = shapeShifter.getShape();
+        assertEquals(expected,actual);
+    }
 }
