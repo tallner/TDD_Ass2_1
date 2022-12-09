@@ -184,4 +184,16 @@ public class ShapeShifterTest{
         String actual = shapeShifter.getShape();
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void checkIfFiveCoordinatesFormsAPyramid(){
+        coordinateArrayList.add(new CoordinateModel(0,0,0));
+        coordinateArrayList.add(new CoordinateModel(0,5,0));
+        coordinateArrayList.add(new CoordinateModel(5,5,0));
+        coordinateArrayList.add(new CoordinateModel(5,0,0));
+        coordinateArrayList.add(new CoordinateModel(2,2,5));
+        String expected = "Pyramid";
+        String actual = shapeShifter.getShape();
+        assertEquals(expected,actual);
+    }
 }

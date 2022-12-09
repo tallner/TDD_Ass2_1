@@ -20,6 +20,7 @@ public class ShapeShifter {
         else if (coordinates.size()==2) returnMessage = checkLine(coordinates) ? "Line" : "Two dots on top of eachoter";
         else if (coordinates.size()==3) returnMessage = checkTriangle(coordinates) ? "Triangle" : "Thats no triangle";
         else if (coordinates.size()==4) returnMessage = checkSquareFormat(coordinates);
+        else if (coordinates.size()==5) returnMessage = checkPyramidFormat(coordinates) ? "Pyramid" : "Thats no pyramid";
 
 
         return returnMessage;
@@ -45,8 +46,14 @@ public class ShapeShifter {
         return coordinates.size() == 3;
     }
 
-    private LengthModel coordinatesDistance(ArrayList<CoordinateModel> coordinates){
-        if (coordinates.size() != 4)
+    private LengthModel coordinatesDistance(ArrayList<CoordinateModel> _coordinates){
+        ArrayList<CoordinateModel> coordinates = new ArrayList<>();
+        for (CoordinateModel item: _coordinates) {
+            coordinates.add(item);
+        }
+        if (coordinates.size() == 5 )
+            coordinates.remove(4);
+        else if (coordinates.size() != 4)
             return null;
 
         int x_sum = coordinates.get(0).getX() + coordinates.get(1).getX() + coordinates.get(2).getX() + coordinates.get(3).getX();
@@ -99,6 +106,7 @@ public class ShapeShifter {
             lenghts.d23 = Math.sqrt(px2+px3+py2+py3-2*((x2*x3)+(y2*y3)));
             lenghts.d24 = Math.sqrt(px2+px4+py2+py4-2*((x2*x4)+(y2*y4)));
             lenghts.d34 = Math.sqrt(px3+px4+py3+py4-2*((x3*x4)+(y3*y4)));
+            lenghts.xy_shape = true;
 
         }else if (xz_shape){
             lenghts.d12 = Math.sqrt(px1+px2+pz1+pz2-2*((x1*x2)+(z1*z2)));
@@ -107,6 +115,7 @@ public class ShapeShifter {
             lenghts.d23 = Math.sqrt(px2+px3+pz2+pz3-2*((x2*x3)+(z2*z3)));
             lenghts.d24 = Math.sqrt(px2+px4+pz2+pz4-2*((x2*x4)+(z2*z4)));
             lenghts.d34 = Math.sqrt(px3+px4+pz3+pz4-2*((x3*x4)+(z3*z4)));
+            lenghts.xz_shape = true;
 
         }else if (yz_shape){
             lenghts.d12 = Math.sqrt(py1+py2+pz1+pz2-2*((y1*y2)+(z1*z2)));
@@ -115,6 +124,7 @@ public class ShapeShifter {
             lenghts.d23 = Math.sqrt(py2+py3+pz2+pz3-2*((y2*y3)+(z2*z3)));
             lenghts.d24 = Math.sqrt(py2+py4+pz2+pz4-2*((y2*y4)+(z2*z4)));
             lenghts.d34 = Math.sqrt(py3+py4+pz3+pz4-2*((y3*y4)+(z3*z4)));
+            lenghts.yz_shape = true;
 
         }else return null;
 
@@ -152,4 +162,33 @@ public class ShapeShifter {
 
         return returnMessage;
     }
+
+    private boolean checkPyramidFormat(ArrayList<CoordinateModel> coordinates) {
+        LengthModel lengths = coordinatesDistance(coordinates);
+        ArrayList<CoordinateModel> fourCoordinates = new ArrayList<>();
+        fourCoordinates.add(coordinates.get(0));
+        fourCoordinates.add(coordinates.get(1));
+        fourCoordinates.add(coordinates.get(2));
+        fourCoordinates.add(coordinates.get(3));
+
+        boolean squareOrRectangle = checkSquareFormat(fourCoordinates).equals("Square") || checkSquareFormat(fourCoordinates).equals("Rectangle");
+
+        System.out.println(squareOrRectangle);
+        System.out.println(lengths);
+        System.out.println(coordinates.get(4).getZ());
+
+        if (squareOrRectangle){
+            if (lengths.xy_shape && coordinates.get(4).getZ()!=0){
+                return true;
+            }else if (lengths.xz_shape && coordinates.get(4).getY()!=0){
+                return true;
+            }else if (lengths.yz_shape && coordinates.get(4).getX()!=0){
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
 }
