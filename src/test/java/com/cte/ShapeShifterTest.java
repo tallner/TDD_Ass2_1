@@ -213,4 +213,38 @@ public class ShapeShifterTest{
         String actual = shapeShifter.getShape();
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void checkIfEightCoordinatesFormsARectangularPrism(){
+        coordinateArrayList.add(new CoordinateModel(0,0,0));
+        coordinateArrayList.add(new CoordinateModel(10,0,0));
+        coordinateArrayList.add(new CoordinateModel(10,5,0));
+        coordinateArrayList.add(new CoordinateModel(0,5,0));
+
+        coordinateArrayList.add(new CoordinateModel(20,0,0));
+        coordinateArrayList.add(new CoordinateModel(30,0,0));
+        coordinateArrayList.add(new CoordinateModel(30,5,0));
+        coordinateArrayList.add(new CoordinateModel(20,5,0));
+
+        String expected = "Rectangular Prism";
+        String actual = shapeShifter.getShape();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void checkIfEightCoordinatesFormsAnother3DShape(){
+        coordinateArrayList.add(new CoordinateModel(0,0,0));
+        coordinateArrayList.add(new CoordinateModel(10,0,0));
+        coordinateArrayList.add(new CoordinateModel(10,5,0));
+        coordinateArrayList.add(new CoordinateModel(0,5,0));
+
+        coordinateArrayList.add(new CoordinateModel(20,0,0));
+        coordinateArrayList.add(new CoordinateModel(31,0,0));
+        coordinateArrayList.add(new CoordinateModel(30,5,0));
+        coordinateArrayList.add(new CoordinateModel(20,5,0));
+
+        String expected = "3D Shape";
+        String actual = shapeShifter.getShape();
+        assertEquals(expected,actual);
+    }
 }
